@@ -1,0 +1,60 @@
+#include <unistd.h> 
+#include <stdio.h> 
+#include <sys/socket.h> 
+#include <stdlib.h> 
+#include <netinet/in.h> 
+#include <string.h> 
+#include <arpa/inet.h>
+#include<time.h>
+
+#define MAXLINE 1024
+#define LISTENQ 30\
+
+void function(int connfd){
+        char rmessage[MAXLINE];
+        char smessage[MAXLINE];
+        int n;
+        while(1){
+                n = read(connfd , rmessage, MAXLINE+1); 
+	        rmessage[n] = '\0';
+        	printf("Client Message:");
+        	fputs(rmessage,stdout); 
+        	fgets(smessage,MAXLINE, stdin);
+	        send(connfd, smessage, strlen(smessage), 0); 
+        	
+	} 
+}
+
+int main()
+{
+
+	int listenfd, connfd, valread;
+	struct sockaddr_in servaddr;
+	int addrlen = sizeof(servaddr); 
+        
+	listenfd = socket(AF_INET, SOCK_STREAM, 0);
+        
+	bzero(&servaddr, sizeof(servaddr));
+	servaddr.sin_family = AF_INET;
+	servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
+	servaddr.sin_port = htons(8080);
+        
+	bind(listenfd, (struct sockaddr *) &servaddr, sizeof(servaddr));
+        
+	if(bind < 0)
+	{
+		printf("Bind Error\n");
+		exit(0);
+        
+	} 
+	
+	listen(listenfd, LISTENQ)
+	connfd = accept(listenfd, (struct sockaddr *) &servaddr, (socklen_t*)&addrlen);
+        function(connfd);
+	
+    
+	close(connfd);   
+	close(listenfd);
+        
+	return 0;
+}
