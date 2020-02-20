@@ -11,5 +11,5 @@
 <br>1. Traceroute [link](https://github.com/udaram/Computer-Networks/blob/master/traceroute.c)
 
 ## Implementation of Ping
-<br>
-1. Ping: [link](https://github.com/udaram/Computer-Networks/blob/master/ping.c)
+
+<br>1. Ping: [link](https://github.com/udaram/Computer-Networks/blob/master/ping.c)
